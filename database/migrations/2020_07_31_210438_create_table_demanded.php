@@ -15,9 +15,7 @@ class CreateTableDemanded extends Migration
     {
         Schema::create('demandeds', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('total');
             $table->string('status');
-            $table->integer('amount');
             $table->string('products_ids');
             $table->unsignedBigInteger('user_id');
 

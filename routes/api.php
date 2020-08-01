@@ -29,11 +29,11 @@ Route::namespace('API')->name('api')->group(function() {
         Route::put('/{id}', 'ProductController@update')->name('products_uptade');
     });
 
-    Route::prefix('/demand')->group(function() {
-        Route::get('/', 'DemandedController@index')->name('requests');
+    Route::prefix('/demanded')->group(function() {
+        Route::get('/', 'DemandedController@index')->name('demanded');
         // Route::get('/{id}', 'ProductController@show')->name('product_only');
 
-        // Route::post('/', 'ProductController@store')->name('products_store');
+        Route::post('/', 'DemandedController@store')->name('demanded_created');
         // Route::put('/{id}', 'ProductController@update')->name('products_uptade');
     });
 });
