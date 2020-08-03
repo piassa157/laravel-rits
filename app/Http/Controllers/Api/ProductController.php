@@ -42,10 +42,10 @@ class ProductController extends Controller
 
         } catch (\Exception $e){
             if(config('app.debug')){
-                return response()->json(ApiError::errorMsg($e->getMessage(), 1010));
+                return response()->json(ApiError::errorMsg($e->getMessage(), 203));
             }
 
-            return response()->json(ApiError::errorMsg('Error created product', 1010));
+            return response()->json(ApiError::errorMsg('Error created product', 203));
         }
     }
 
@@ -57,11 +57,8 @@ class ProductController extends Controller
             $data = [
                 'name' => $request->input('name'),
                 'price' => $request->input('price'),
-                'description' => $request->input('description'),
-                'created_at' => now()
+                'description' => $request->input('description')
             ];
-
-            // throw_if($this->product->where($request->input('user_id'), '<>', 'user_id'), new Exception('Error update product', 203));
 
             $this->product->update($data);
 
@@ -72,7 +69,23 @@ class ProductController extends Controller
                 return response()->json(ApiError::errorMsg($e->getMessage(), 203));
             }
 
-            return response()->json(ApiError::errorMsg('Error in product', 203));
+            return response()->json(ApiError::errorMsg('Error in product update', 1011));
+        }
+    }
+
+    public function delete(Product $id)
+    {
+        try{
+            $id->delete();
+
+            return response()->json(['data' => ['msg' => 'Product '. $id->name . 'deleted sucess!']], 200);
+        }catch(\Exception $e){
+
+            if(config('app.debug')){
+                return response()->json(ApiError::errorMsg($e->getMessage(), 203));
+            }
+
+            return response()->json(ApiError::errorMsg('Error in delete product', 203));
         }
     }
 }
