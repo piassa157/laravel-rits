@@ -78,12 +78,13 @@ class DemandedController extends Controller
                 'updated_at' => now()
             ];
 
+
             if($user->id != $demand->user_id)
             {
                 return response()->json(['msg' => 'user difference'], 203);
             }
 
-            $this->demanded->update($data);
+            demanded::find($id)->update($data);
 
             return response()->json(['msg' => 'Request updated sucess'], 202);
 
