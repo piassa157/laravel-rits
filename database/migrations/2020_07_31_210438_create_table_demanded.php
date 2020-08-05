@@ -19,7 +19,8 @@ class CreateTableDemanded extends Migration
             $table->string('products_ids');
             $table->unsignedBigInteger('user_id');
 
-            $table->timestamps(); //created_at
+            $table->timestamps();
+            $table->softDeletes('canceled_at', 0);
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

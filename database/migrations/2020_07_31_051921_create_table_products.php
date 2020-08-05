@@ -19,7 +19,8 @@ class CreateTableProducts extends Migration
             $table->float('price');
             $table->string('description');
 
-            $table->timestamps(); //created_at
+            $table->timestamps();
+            $table->softDeletes('deleted_at', 0);
         });
     }
 

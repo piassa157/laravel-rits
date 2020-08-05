@@ -28,10 +28,11 @@ class DemandedController extends Controller
 
     public function show(Demanded $id){
         $data = ['data' => $id];
+
         return response()->json($data);
     }
 
-    public function store (Request $request) {
+    public function store(Request $request) {
 
         try{
              $request->validate([
@@ -100,14 +101,15 @@ class DemandedController extends Controller
 
     public function cancel($id){
         try{
-            $validatedData = $request->validate([
+            $request->validate([
                 'user_id' => 'required'
             ]);
 
             $user = $this->user->find($request->input('user_id'));
 
             $data = [
-                'status' => 'CANCELADO'
+                'status' => 'CANCELADO',
+                'canceled_at' => now()
             ];
 
             $this->demanded->update($data);
@@ -118,7 +120,7 @@ class DemandedController extends Controller
                 return response()->json(ApiError::errorMsg($e->getMessage(), 203));
             }
 
-            return response()->json(ApiError::errorMsg('Error in request update', 203));
+            return response()->json(ApiError::errorMsg('Error in request cancel', 203));
         }
     }
 

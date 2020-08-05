@@ -2,13 +2,13 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App;
+use App\Product;
 use Faker\Generator as Faker;
 
 $factory->define(\App\Product::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'price' => $faker->randomFloat(2),
+        'price' => $faker->randomFloat(2, 0, 8),
         'description' => $faker->text,
     ];
 });

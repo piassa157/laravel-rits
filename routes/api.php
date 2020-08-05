@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
-
-
 });
 
 Route::namespace('API')->name('api')->group(function() {
+
     Route::prefix('/products')->group(function() {
         Route::get('/', 'ProductController@index')->name('products');
         Route::get('/{id}', 'ProductController@show')->name('product_only');
@@ -39,6 +38,16 @@ Route::namespace('API')->name('api')->group(function() {
         Route::put('/{id}', 'DemandedController@update')->name('demanded_update');
 
         Route::put('/{id}/cancel', 'DemandedController@cancel')->name('demanded_canceled');
+    });
+
+    Route::prefix('/user')->group(function() {
+        Route::get('/', 'UserController@index')->name('user');
+        Route::get('/{id}', 'UserController@show')->name('user_only');
+
+        Route::post('/', 'UserController@create')->name('user_created');
+        Route::put('/{id}', 'UserController@update')->name('user_update');
+
+        Route::put('/{id}/delete', 'UserController@delete')->name('user_deleted');
     });
 });
 
